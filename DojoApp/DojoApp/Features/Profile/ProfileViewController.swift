@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ProfileDisplaying: AnyObject {
-    
+    func displayNavigationBarButton()
 }
 
 final class ProfileViewController: UIViewController {
@@ -20,7 +20,6 @@ final class ProfileViewController: UIViewController {
         table.delegate = self
         table.dataSource = self
         table.tableFooterView = UIView()
-        table.tableHeaderView = UserHeaderView()
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -30,6 +29,7 @@ final class ProfileViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -37,11 +37,28 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buildLayout()
+        displayNavigationBarButton()
     }
 }
 
 extension ProfileViewController: ProfileDisplaying {
+    func displayNavigationBarButton() {
+        let configButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(didTapConfigButton))
+        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapConfigButton))
+        navigationItem.rightBarButtonItems = [shareButton, configButton]
+    }
+}
+
+private extension ProfileViewController {
+    @objc
+    func didTapConfigButton() {
+        print(#function)
+    }
     
+    @objc
+    func didTapShareButton() {
+        print(#function)
+    }
 }
 
 extension ProfileViewController: ViewConfiguration {
@@ -54,21 +71,27 @@ extension ProfileViewController: ViewConfiguration {
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
 
 extension ProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        UserHeaderView()
+    }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        UITableView.automaticDimension
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        UITableViewCell()
     }
 }

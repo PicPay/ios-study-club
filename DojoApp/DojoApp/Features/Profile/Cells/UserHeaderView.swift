@@ -7,6 +7,7 @@ final class UserHeaderView: UIView {
         imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         imageView.layer.cornerRadius = 25
         imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -26,6 +27,7 @@ final class UserHeaderView: UIView {
     
     private lazy var labelStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [nameLabel, usernameLabel])
+        stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 5
         stack.distribution = .fillEqually
@@ -52,7 +54,7 @@ final class UserHeaderView: UIView {
         label.backgroundColor = .lightGray
         label.layer.cornerRadius = 8
         label.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        label.text = "User status"
+        label.text = "User status User status User status"
         return label
     }()
     
@@ -60,7 +62,8 @@ final class UserHeaderView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "Programmer and a movie buff"
+        label.numberOfLines = 0
+        label.text = "Programmer and a movie buff User status User status User status User status User status User status"
         return label
     }()
     
@@ -69,6 +72,7 @@ final class UserHeaderView: UIView {
         buildLayout()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -83,7 +87,7 @@ extension UserHeaderView: ViewConfiguration {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            userInfoStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            userInfoStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
             userInfoStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             userInfoStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
@@ -93,13 +97,17 @@ extension UserHeaderView: ViewConfiguration {
             statusLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             statusLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
-        
+
         NSLayoutConstraint.activate([
             bioLabel.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 10),
             bioLabel.leadingAnchor.constraint(equalTo: self.statusLabel.leadingAnchor),
-            bioLabel.trailingAnchor.constraint(equalTo: self.statusLabel.trailingAnchor)
+            bioLabel.trailingAnchor.constraint(equalTo: self.statusLabel.trailingAnchor),
+            bioLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+        ])
+        
+        NSLayoutConstraint.activate([
+            userImage.widthAnchor.constraint(equalToConstant: 50),
+            userImage.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
-    
 }
