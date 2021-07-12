@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol ProfileInteracting {
-    
-}
+protocol ProfileInteracting {}
 
-final class ProfileInteractor: ProfileInteracting {
-    
-}
+final class ProfileInteractor: ProfileInteracting {}
