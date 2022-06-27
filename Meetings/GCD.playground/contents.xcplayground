@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' display-mode='raw' buildActiveScheme='true' importAppTypes='true'>
+    <pages>
+        <page name='Concurrency'/>
+        <page name='MainThread'/>
+        <page name='SyncVsAsync'/>
+        <page name='SerialQueue'/>
+        <page name='ConcurrentQueue'/>
+        <page name='QoS'/>
+        <page name='DispatchGroup'/>
+        <page name='DispatchWorkItem'/>
+        <page name='DataRaces'/>
+        <page name='Deadlock'/>
+        <page name='ThreadSanitizer'/>
+        <page name='DispatchSemaphore'/>
+    </pages>
+</playground>
